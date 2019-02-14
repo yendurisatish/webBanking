@@ -1,0 +1,14 @@
+c:\users\saivenkatas\documents\visual studio 2013\Projects\BankWebApi\RepositoryLayer\bin\Debug\RepositoryLayer.dll
+c:\users\saivenkatas\documents\visual studio 2013\Projects\BankWebApi\RepositoryLayer\bin\Debug\RepositoryLayer.pdb
+c:\users\saivenkatas\documents\visual studio 2013\Projects\BankWebApi\RepositoryLayer\obj\Debug\RepositoryLayer.csprojResolveAssemblyReference.cache
+c:\users\saivenkatas\documents\visual studio 2013\Projects\BankWebApi\RepositoryLayer\obj\Debug\RepositoryLayer.dll
+c:\users\saivenkatas\documents\visual studio 2013\Projects\BankWebApi\RepositoryLayer\obj\Debug\RepositoryLayer.pdb
+C:\Users\saivenkatas\documents\visual studio 2013\Projects\BankWebApi\RepositoryLayer\bin\Debug\ModelLayer.dll
+C:\Users\saivenkatas\documents\visual studio 2013\Projects\BankWebApi\RepositoryLayer\bin\Debug\ModelLayer.pdb
+C:\Users\saivenkatas\Desktop\doc\BankWebApi\RepositoryLayer\bin\Debug\RepositoryLayer.dll
+C:\Users\saivenkatas\Desktop\doc\BankWebApi\RepositoryLayer\bin\Debug\RepositoryLayer.pdb
+C:\Users\saivenkatas\Desktop\doc\BankWebApi\RepositoryLayer\bin\Debug\ModelLayer.dll
+C:\Users\saivenkatas\Desktop\doc\BankWebApi\RepositoryLayer\bin\Debug\ModelLayer.pdb
+C:\Users\saivenkatas\Desktop\doc\BankWebApi\RepositoryLayer\obj\Debug\RepositoryLayer.csprojResolveAssemblyReference.cache
+C:\Users\saivenkatas\Desktop\doc\BankWebApi\RepositoryLayer\obj\Debug\RepositoryLayer.dll
+C:\Users\saivenkatas\Desktop\doc\BankWebApi\RepositoryLayer\obj\Debug\RepositoryLayer.pdb
