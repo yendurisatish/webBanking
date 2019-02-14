@@ -8,6 +8,7 @@ namespace ModelLayer
 {
     public class CreateUser : AccountDetail
     {
+        //2nd comment
         public string Password { get; set; }
     }
 }
