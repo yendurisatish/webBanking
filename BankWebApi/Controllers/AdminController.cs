@@ -48,7 +48,7 @@ namespace WebApiDemo.Controllers
         {
             string ss = request.Content.ReadAsStringAsync().Result;
             CreateUser ds = JsonConvert.DeserializeObject<CreateUser>(ss);
-            string errorMessage = string.Empty;
+            string errorMessage = "";
             adminservice.CreateAccount(ds,ref errorMessage);
 
             if (errorMessage=="")
