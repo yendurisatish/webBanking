@@ -42,7 +42,7 @@ namespace RepositoryLayer
                con.Open();
               
               
-               SqlCommand cmd1 = new SqlCommand("sendmoney", con);
+               SqlCommand cmd1 = new SqlCommand("transfer", con);
                cmd1.CommandType = CommandType.StoredProcedure;
                cmd1.Parameters.AddWithValue("@senderaccount", ts.senderaccount);
                cmd1.Parameters.AddWithValue("@targetaccount",ts.targetaccount );

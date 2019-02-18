@@ -43,7 +43,7 @@ namespace ServiceLayer
                detail.AccountNumber = Convert.ToInt64(row["account_no"]);
                detail.LoanId = Convert.ToInt32(row["loan_id"]);
                detail.Approval = Convert.ToString(row["approved"]);
-               detail.ApprovedTime = Convert.ToDateTime(row["approved_time"]);
+               detail.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
                detail.LoanAmount = Convert.ToInt32(row["loan_amount"]);
                loanlist.Add(detail);
            }
@@ -59,7 +59,7 @@ namespace ServiceLayer
                detail.AccountNumber = Convert.ToInt64(row["accountno"]);
                detail.DepositId = Convert.ToInt32(row["deposit_id"]);
                detail.Approved = Convert.ToString(row["approved"]);
-               detail.DepositTime = Convert.ToDateTime(row["approved_time"]);
+               detail.DepositTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
                detail.DepositAmount = Convert.ToInt32(row["deposit_amount"]);
                detail.Duration = Convert.ToInt32(row["duration"]);
                depositlist.Add(detail);
