@@ -77,11 +77,11 @@ namespace WebApiDemo.Controllers
 
         }
         [HttpPost]
-        public void CloseAccount(HttpRequestMessage request)
+        public void CloseAccount(int accountNumber)
         {
-            string ss = request.Content.ReadAsStringAsync().Result;
-            Int64 i = Convert.ToInt64(ss);
-            adminservice.CloseAccount(i);
+            //string ss = request.Content.ReadAsStringAsync().Result;
+            //Int64 i = Convert.ToInt64(ss);
+            adminservice.CloseAccount(accountNumber);
 
         }
         [HttpPost]
