@@ -153,22 +153,22 @@ namespace RepositoryLayer
 
 
                 int boolInt = cu.IsAdmin ? 1 : 0;
-                SqlCommand cmd = new SqlCommand("updateaccount", con);
+                SqlCommand cmd = new SqlCommand("update", con);
 
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@username", cu.UserName);
+               // cmd.Parameters.AddWithValue("@username", cu.UserName);
                 cmd.Parameters.AddWithValue("@accountno", cu.AccountNumber);
                 cmd.Parameters.AddWithValue("@firstname", cu.FirstName);
                 cmd.Parameters.AddWithValue("@lastname", cu.LastName);
-                cmd.Parameters.AddWithValue("@dob", cu.Dob);
+              //  cmd.Parameters.AddWithValue("@dob", cu.Dob);
                 cmd.Parameters.AddWithValue("@phoneno", cu.PhoneNumber);
                 cmd.Parameters.AddWithValue("@email", cu.Email);
-                cmd.Parameters.AddWithValue("@aadhar_no", cu.Aadhar);
-                cmd.Parameters.AddWithValue("@account_type", cu.AccountType);
+               // cmd.Parameters.AddWithValue("@aadhar_no", cu.Aadhar);
+             //   cmd.Parameters.AddWithValue("@account_type", cu.AccountType);
                 cmd.Parameters.AddWithValue("@balance", cu.Balance);
                 cmd.Parameters.AddWithValue("@address", cu.Address);
 
-                cmd.Parameters.AddWithValue("@admin", cu.IsAdmin);
+              //  cmd.Parameters.AddWithValue("@admin", cu.IsAdmin);
                 //cmd1.ExecuteNonQuery();
                 cmd.ExecuteNonQuery();
 
