@@ -61,19 +61,19 @@ namespace WebApiDemo.Controllers
 
         }
         [HttpPost]
-        public void ApproveLoans(HttpRequestMessage request)
+        public void ApproveLoans(int id,int acc)
         {
-            string ss = request.Content.ReadAsStringAsync().Result;
-            int i = Convert.ToInt16(ss);
-            adminservice.ApproveLoans(i);
+            //string ss = request.Content.ReadAsStringAsync().Result;
+            //int i = Convert.ToInt16(ss);
+            adminservice.ApproveLoans(id,acc);
 
         }
         [HttpPost]
-        public void ApproveDeposits(HttpRequestMessage request)
+        public void ApproveDeposits(int id, int acc)
         {
-            string ss = request.Content.ReadAsStringAsync().Result;
-            int i = Convert.ToInt16(ss);
-            adminservice.ApproveDeposits(i);
+            //string ss = request.Content.ReadAsStringAsync().Result;
+            //int i = Convert.ToInt16(ss);
+            adminservice.ApproveDeposits(id,acc);
 
         }
         [HttpPost]

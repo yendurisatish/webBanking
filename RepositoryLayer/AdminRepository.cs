@@ -95,7 +95,7 @@ namespace RepositoryLayer
 
             }
         }
-        public void ApproveLoans(int id)
+        public void ApproveLoans(int id,int acc)
         {
             SqlConnection con = new SqlConnection();
             try
@@ -115,11 +115,12 @@ namespace RepositoryLayer
                 cmd1.Parameters.AddWithValue("@id", id);
                 cmd1.Parameters.AddWithValue("@accountno", accno);
                 cmd1.Parameters.AddWithValue("@bal", bal);
+                cmd1.Parameters.AddWithValue("@appAccountNo", acc);
                 cmd1.ExecuteNonQuery();
             }
             finally { }
         }
-        public void ApproveDeposits(int id)
+        public void ApproveDeposits(int id, int acc)
         {
             SqlConnection con = new SqlConnection();
             try
@@ -139,6 +140,7 @@ namespace RepositoryLayer
                 cmd1.Parameters.AddWithValue("@id", id);
                 cmd1.Parameters.AddWithValue("@accountno", accno);
                 cmd1.Parameters.AddWithValue("@bal", bal);
+                cmd1.Parameters.AddWithValue("@appAccountNo", bal);
                 cmd1.ExecuteNonQuery();
             }
             finally { }

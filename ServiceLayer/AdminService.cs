@@ -82,13 +82,13 @@ namespace ServiceLayer
 
         }
         
-        public void ApproveLoans(int id)
+        public void ApproveLoans(int id,int acc)
         {
-            repo.ApproveLoans(id);
+            repo.ApproveLoans(id,acc);
         }
-        public void ApproveDeposits(int id)
+        public void ApproveDeposits(int id, int acc)
         {
-            repo.ApproveDeposits(id);
+            repo.ApproveDeposits(id,acc);
         }
         public void CloseAccount(Int64 accno)
         {
