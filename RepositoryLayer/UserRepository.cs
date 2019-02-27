@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Web;
+using System.Web.Hosting;
 using ModelLayer;
 using RepositoryLayer.Interface;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace RepositoryLayer
 {
@@ -80,7 +83,7 @@ namespace RepositoryLayer
            {
                con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
                con.Open();
-               string loanDetail = "select * from [dbo].[Loans] where account_no=" + accno ;
+               string loanDetail = "select * from [dbo].[user_view_loans] where account_no=" + accno;
                SqlCommand cmd = new SqlCommand(loanDetail, con);
                SqlDataAdapter da = new SqlDataAdapter(cmd);
                DataSet ds = new DataSet();
@@ -113,11 +116,69 @@ namespace RepositoryLayer
                return null;
            }
        }
+       string SaveFile(string sourcepath)
+       {
+           // Specify the path to save the uploaded file to.
+           string savePath = "~\\Files\\";
+           //savePath = System.Web.Hosting.HostingEnvironment.MapPath("~\\Files\\");
+           //if (!System.IO.Directory.Exists(savePath))
+           //{
+           //    System.IO.Directory.CreateDirectory(savePath);
+           //}
+           // Get the name of the file to upload.
+           string fileName = Path.GetFileName(sourcepath); 
+
+           // Create the path and file name to check for duplicates.
+           string pathToCheck = savePath + fileName;
+           var x = System.Web.Hosting.HostingEnvironment.MapPath(pathToCheck);
+           // Create a temporary file name to use for checking duplicates.
+           string tempfileName = "";
+
+           // Check to see if a file already exists with the
+           // same name as the file to upload.        
+           if (System.IO.File.Exists(x))
+           {
+               int counter = 2;
+               while (System.IO.File.Exists(x))
+               {
+                   // if a file with this name already exists,
+                   // prefix the filename with a number.
+                   tempfileName = counter.ToString() + fileName;
+                   x = savePath + tempfileName;
+                   counter++;
+               }
+
+               fileName = tempfileName;
+
+               // Notify the user that the file name was changed.
+               //UploadStatusLabel.Text = "A file with the same name already exists." +
+               //   "<br />Your file was saved as " + fileName;
+           }
+           else
+           {
+               // Notify the user that the file was saved successfully.
+               // UploadStatusLabel.Text = "Your file was uploaded successfully.";
+           }
+
+           // Append the name of the file to upload to the path.
+           savePath += fileName;
+
+           // Call the SaveAs method to save the uploaded
+           // file to the specified directory.
+           System.IO.File.Copy(sourcepath, System.Web.Hosting.HostingEnvironment.MapPath(savePath), true);
+          
+           return savePath;
+
+       }
       public void applyLoan(ApplyLoan al)
        {
            SqlConnection con = new SqlConnection();
            con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
            con.Open();
+          // string source = @"C:\Users\saivenkatas\Desktop\doc\hackathon_participation.jpg";
+           //al.Payslip = SaveFile(source);
+           //al.Photo = SaveFile(source);
+           //al.Signature = SaveFile(source);
            try
            {
                SqlCommand cmd = new SqlCommand("applyLoan", con);
@@ -125,9 +186,9 @@ namespace RepositoryLayer
                cmd.Parameters.AddWithValue("@accountNumber", al.AccountNumber);
                cmd.Parameters.AddWithValue("@loanType", al.LoanType);
                cmd.Parameters.AddWithValue("@income", al.Income);
-               cmd.Parameters.AddWithValue("@payslip", al.Payslip);
-               cmd.Parameters.AddWithValue("@photo", al.Photo);
-               cmd.Parameters.AddWithValue("@signature", al.Signature);
+               //cmd.Parameters.AddWithValue("@payslip", al.Payslip);
+               //cmd.Parameters.AddWithValue("@photo", al.Photo);
+               //cmd.Parameters.AddWithValue("@signature", al.Signature);
                cmd.Parameters.AddWithValue("@loanAmount", al.LoanAmount);
                cmd.Parameters.AddWithValue("@empType", al.EmpType);
                cmd.Parameters.AddWithValue("@city", al.City);

@@ -43,7 +43,7 @@ namespace BankWebApi.Controllers
         public IHttpActionResult loanDetails(int accountNumber)
         {
             var result = userservice.loanDetails(accountNumber);
-            return Ok<IList<Loans>>(result);
+            return Ok<IList<UsrViewLoans>>(result);
         }
         [HttpGet]
         public IHttpActionResult depositDetails(int accountNumber)

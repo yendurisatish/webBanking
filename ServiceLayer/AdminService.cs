@@ -62,20 +62,51 @@ namespace ServiceLayer
             return depositsList;
 
         }
-        public IList<Loans> GetLoans()
+        public IList<AdminViewLoans> GetLoans()
         {
             DataSet ds = repo.GetLoans();
-            IList<Loans> loansList = new List<Loans>();
+            IList<AdminViewLoans> loansList = new List<AdminViewLoans>();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                Loans loan = new Loans();
-                loan.LoanId = Convert.ToInt32(row["loan_id"]);
-                loan.AccountNumber = Convert.ToInt64(row["account_no"]);
-                loan.LoanAmount = Convert.ToInt32(row["loan_amount"]);
-                loan.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
-                loan.Approval = Convert.ToString(row["approved"]);
+                AdminViewLoans detail = new AdminViewLoans();
+                detail.AccountNumber = Convert.ToInt64(row["account_no"]);
+                detail.Id = Convert.ToInt32(row["Id"]);
+                detail.Username = Convert.ToString(row["username"]);
+                detail.Approval = Convert.ToString(row["approved"]);
+                detail.ApprovedTime = Convert.ToString(row["approved_time"]);
+                //detail.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
+                detail.LoanAmount = Convert.ToString(row["loan_amount"]);
+                detail.City = Convert.ToString(row["city"]);
+                detail.EmpType = Convert.ToString(row["Emp_Type"]);
+                detail.LoanType = Convert.ToString(row["LoanType"]);
+                detail.Income = Convert.ToString(row["Income"]);
 
-                loansList.Add(loan);
+                loansList.Add(detail);
+            }
+
+            return loansList;
+
+        }
+        public IList<AdminViewLoans> GetUnApprovedLoans()
+        {
+            DataSet ds = repo.GetUnApprovedLoans();
+            IList<AdminViewLoans> loansList = new List<AdminViewLoans>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                AdminViewLoans detail = new AdminViewLoans();
+                detail.AccountNumber = Convert.ToInt64(row["account_no"]);
+                detail.Id = Convert.ToInt32(row["Id"]);
+                detail.Username = Convert.ToString(row["username"]);
+                detail.Approval = Convert.ToString(row["approved"]);
+                detail.ApprovedTime = Convert.ToString(row["approved_time"]);
+                //detail.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
+                detail.LoanAmount = Convert.ToString(row["loan_amount"]);
+                detail.City = Convert.ToString(row["city"]);
+                detail.EmpType = Convert.ToString(row["Emp_Type"]);
+                detail.LoanType = Convert.ToString(row["LoanType"]);
+                detail.Income = Convert.ToString(row["Income"]);
+
+                loansList.Add(detail);
             }
 
             return loansList;

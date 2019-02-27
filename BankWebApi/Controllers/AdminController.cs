@@ -41,7 +41,14 @@ namespace WebApiDemo.Controllers
         {
             
             var res = adminservice.GetLoans();
-            return Ok<IList<Loans>>(res);
+            return Ok<IList<AdminViewLoans>>(res);
+        }
+        [HttpGet]
+        public IHttpActionResult GetUnApprovedLoans()
+        {
+
+            var res = adminservice.GetUnApprovedLoans();
+            return Ok<IList<AdminViewLoans>>(res);
         }
         [HttpPost]
         public string CreateAccount(HttpRequestMessage request)

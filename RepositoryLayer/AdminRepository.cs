@@ -62,7 +62,28 @@ namespace RepositoryLayer
             {
                 con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
                 con.Open();
-                string getUserDetail = "SELECT * FROM [MyBank].[dbo].[Loans]";
+                string getUserDetail = "SELECT * from [admin_view_loans]";
+                SqlCommand cmd = new SqlCommand(getUserDetail, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                return ds;
+            }
+            //throw new NotImplementedException();
+            catch
+            {
+                return null;
+            }
+
+        }
+        public DataSet GetUnApprovedLoans()
+        {
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
+                con.Open();
+                string getUserDetail = "SELECT * from [admin_view_loans] where approved='no'";
                 SqlCommand cmd = new SqlCommand(getUserDetail, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
@@ -102,14 +123,14 @@ namespace RepositoryLayer
             {
                 con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
                 con.Open();
-                string getUserDetail = "SELECT * FROM [MyBank].[dbo].[Loans] where loan_id=" + id;
+                string getUserDetail = "SELECT * FROM [MyBank].[dbo].[Loan] where Id=" + id;
                 SqlCommand cmd = new SqlCommand(getUserDetail, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
                 //DataRow row = ds.Tables[0].Rows[0];
                 Int32 bal = Convert.ToInt32(ds.Tables[0].Rows[0]["loan_amount"]);
-                Int64 accno = Convert.ToInt32(ds.Tables[0].Rows[0][1]);
+                Int64 accno = Convert.ToInt32(ds.Tables[0].Rows[0]["account_no"]);
                 SqlCommand cmd1 = new SqlCommand("approveloans", con);
                 cmd1.CommandType = CommandType.StoredProcedure;
                 cmd1.Parameters.AddWithValue("@id", id);

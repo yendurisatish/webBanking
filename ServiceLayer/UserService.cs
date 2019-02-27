@@ -33,18 +33,23 @@ namespace ServiceLayer
              return transList;
         }
 
-       public IList<Loans> loanDetails(Int64 accno)
+       public IList<UsrViewLoans> loanDetails(Int64 accno)
        {
            DataSet ds = repo.loanDetails(accno);
-           IList<Loans> loanlist = new List<Loans>();
+           IList<UsrViewLoans> loanlist = new List<UsrViewLoans>();
            foreach (DataRow row in ds.Tables[0].Rows)
            {
-               Loans detail = new Loans();
+               UsrViewLoans detail = new UsrViewLoans();
                detail.AccountNumber = Convert.ToInt64(row["account_no"]);
-               detail.LoanId = Convert.ToInt32(row["loan_id"]);
+               detail.Id = Convert.ToInt32(row["Id"]);
                detail.Approval = Convert.ToString(row["approved"]);
-               detail.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
-               detail.LoanAmount = Convert.ToInt32(row["loan_amount"]);
+               detail.ApprovedTime = Convert.ToString(row["approved_time"]);
+               //detail.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
+               detail.LoanAmount = Convert.ToString(row["loan_amount"]);
+               detail.City=Convert.ToString(row["city"]);
+               detail.EmpType = Convert.ToString(row["Emp_Type"]);
+               detail.LoanType = Convert.ToString(row["LoanType"]);
+               detail.Income = Convert.ToString(row["Income"]);
                loanlist.Add(detail);
            }
            return loanlist;
