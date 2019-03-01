@@ -35,6 +35,12 @@ namespace WebApiDemo.Controllers
             var res = adminservice.GetDeposits();
             return Ok<IList<Deposits>>(res);
         }
+        [HttpGet]
+        public IHttpActionResult GetUnApprovedDeposits()
+        {
+            var res = adminservice.GetUnApprovedDeposits();
+            return Ok<IList<ApproveDeposit>>(res);
+        }
 
         [HttpGet]
         public IHttpActionResult GetLoans()
@@ -48,7 +54,7 @@ namespace WebApiDemo.Controllers
         {
 
             var res = adminservice.GetUnApprovedLoans();
-            return Ok<IList<AdminViewLoans>>(res);
+            return Ok<IList<ApproveLoans>>(res);
         }
         [HttpPost]
         public string CreateAccount(HttpRequestMessage request)

@@ -55,6 +55,27 @@ namespace RepositoryLayer
             }
 
         }
+        public DataSet GetUnApprovedDeposits()
+        {
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
+                con.Open();
+                string getUserDetail = "SELECT * FROM [MyBank].[dbo].[deposits] where approved='no'";
+                SqlCommand cmd = new SqlCommand(getUserDetail, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                return ds;
+            }
+            //throw new NotImplementedException();
+            catch
+            {
+                return null;
+            }
+
+        }
         public DataSet GetLoans()
         {
             SqlConnection con = new SqlConnection();
@@ -83,7 +104,7 @@ namespace RepositoryLayer
             {
                 con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
                 con.Open();
-                string getUserDetail = "SELECT * from [admin_view_loans] where approved='no'";
+                string getUserDetail = "SELECT * from [admin_approve_loans]";
                 SqlCommand cmd = new SqlCommand(getUserDetail, con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();

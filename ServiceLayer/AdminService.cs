@@ -62,6 +62,25 @@ namespace ServiceLayer
             return depositsList;
 
         }
+        public IList<ApproveDeposit> GetUnApprovedDeposits()
+        {
+            DataSet ds = repo.GetUnApprovedDeposits();
+            IList<ApproveDeposit> depositsList = new List<ApproveDeposit>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                ApproveDeposit dep = new ApproveDeposit();
+                dep.DepositId = Convert.ToInt32(row["deposit_id"]);
+                dep.AccountNumber = Convert.ToInt64(row["accountno"]);
+                dep.DepositAmount = Convert.ToInt32(row["deposit_amount"]);
+                dep.Duration = Convert.ToInt32(row["duration"]);
+               // dep.DepositTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
+                dep.Approved = Convert.ToString(row["approved"]);
+                depositsList.Add(dep);
+            }
+
+            return depositsList;
+
+        }
         public IList<AdminViewLoans> GetLoans()
         {
             DataSet ds = repo.GetLoans();
@@ -87,18 +106,18 @@ namespace ServiceLayer
             return loansList;
 
         }
-        public IList<AdminViewLoans> GetUnApprovedLoans()
+        public IList<ApproveLoans> GetUnApprovedLoans()
         {
             DataSet ds = repo.GetUnApprovedLoans();
-            IList<AdminViewLoans> loansList = new List<AdminViewLoans>();
+            IList<ApproveLoans> loansList = new List<ApproveLoans>();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                AdminViewLoans detail = new AdminViewLoans();
+                ApproveLoans detail = new ApproveLoans();
                 detail.AccountNumber = Convert.ToInt64(row["account_no"]);
                 detail.Id = Convert.ToInt32(row["Id"]);
                 detail.Username = Convert.ToString(row["username"]);
                 detail.Approval = Convert.ToString(row["approved"]);
-                detail.ApprovedTime = Convert.ToString(row["approved_time"]);
+               // detail.ApprovedTime = Convert.ToString(row["approved_time"]);
                 //detail.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
                 detail.LoanAmount = Convert.ToString(row["loan_amount"]);
                 detail.City = Convert.ToString(row["city"]);

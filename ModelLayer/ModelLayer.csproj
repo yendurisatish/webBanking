@@ -43,6 +43,8 @@
     <Compile Include="AccountDetails.cs" />
     <Compile Include="AdminViewLoans.cs" />
     <Compile Include="ApplyLoan.cs" />
+    <Compile Include="ApproveDeposit.cs" />
+    <Compile Include="ApproveLoans.cs" />
     <Compile Include="CreateUser.cs" />
     <Compile Include="Deposits.cs" />
     <Compile Include="Loans.cs" />
