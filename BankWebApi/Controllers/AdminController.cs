@@ -21,7 +21,7 @@ namespace WebApiDemo.Controllers
             adminservice = new AdminService();
         }
 
-
+    
         [HttpGet]
         public IHttpActionResult GetAccountDetail()
         {
@@ -50,6 +50,21 @@ namespace WebApiDemo.Controllers
             return Ok<IList<AdminViewLoans>>(res);
         }
         [HttpGet]
+        public IHttpActionResult VerifierViewLoans()
+        {
+
+            var res = adminservice.VerifierViewLoans();
+            return Ok<IList<AdminViewLoans>>(res);
+        }
+        [HttpGet]
+        public IHttpActionResult VerifierViewLoans(int id)
+        {
+
+            var res = adminservice.VerifierViewLoans(id);
+            return Ok<AdminViewLoans>(res);
+        }
+
+        [HttpGet]
         public IHttpActionResult GetUnApprovedLoans()
         {
 
@@ -74,11 +89,20 @@ namespace WebApiDemo.Controllers
 
         }
         [HttpPost]
-        public void ApproveLoans(int id,int acc)
+        public void ApproveLoans(int id)
         {
             //string ss = request.Content.ReadAsStringAsync().Result;
             //int i = Convert.ToInt16(ss);
-            adminservice.ApproveLoans(id,acc);
+            adminservice.ApproveLoans(id);
+
+        }
+
+        [HttpPost]
+        public void VerifyLoans(HttpRequestMessage request)
+        {
+            string ss = request.Content.ReadAsStringAsync().Result;
+            int i = Convert.ToInt16(ss);
+            adminservice.VerifyLoans(i);
 
         }
         [HttpPost]

@@ -37,7 +37,7 @@ namespace ServiceLayer
                 detail.AccountType = Convert.ToString(row["account_type"]);
                 detail.Balance = Convert.ToInt32(row["balance"]);
                 detail.Address = Convert.ToString(row["address"]);
-                detail.IsAdmin = Convert.ToBoolean(row["admin"]);
+                detail.IsAdmin = Convert.ToString(row["admin"]);
                 accountDetailList.Add(detail);
             }
             return accountDetailList;
@@ -106,6 +106,58 @@ namespace ServiceLayer
             return loansList;
 
         }
+        public IList<AdminViewLoans> VerifierViewLoans()
+        {
+            DataSet ds = repo.VerifierGetLoans();
+            IList<AdminViewLoans> loansList = new List<AdminViewLoans>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                AdminViewLoans detail = new AdminViewLoans();
+                detail.AccountNumber = Convert.ToInt64(row["account_no"]);
+                detail.Id = Convert.ToInt32(row["Id"]);
+                detail.Username = Convert.ToString(row["username"]);
+              //  detail.Approval = Convert.ToString(row["approved"]);
+               // detail.ApprovedTime = Convert.ToString(row["approved_time"]);
+                //detail.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
+                detail.LoanAmount = Convert.ToString(row["loan_amount"]);
+               // detail.City = Convert.ToString(row["city"]);
+                //detail.EmpType = Convert.ToString(row["Emp_Type"]);
+                detail.LoanType = Convert.ToString(row["LoanType"]);
+                detail.Income = Convert.ToString(row["Income"]);
+                detail.status = Convert.ToString(row["status"]);
+
+                loansList.Add(detail);
+            }
+
+            return loansList;
+
+        }
+        public AdminViewLoans VerifierViewLoans(int id)
+        {
+            DataSet ds = repo.VerifierGetLoans(id);
+           // AdminViewLoans loansList = new AdminViewLoans();
+            
+                AdminViewLoans detail = new AdminViewLoans();
+                
+                detail.Id = Convert.ToInt32(ds.Tables[0].Rows[0]["Id"]);
+                detail.Username = Convert.ToString(ds.Tables[0].Rows[0]["username"]);
+                //  detail.Approval = Convert.ToString(row["approved"]);
+                // detail.ApprovedTime = Convert.ToString(row["approved_time"]);
+                //detail.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
+                detail.AccountNumber = Convert.ToInt64(ds.Tables[0].Rows[0]["account_no"]);
+                detail.LoanAmount = Convert.ToString(ds.Tables[0].Rows[0]["loan_amount"]);
+                // detail.City = Convert.ToString(row["city"]);
+                //detail.EmpType = Convert.ToString(row["Emp_Type"]);
+                detail.LoanType = Convert.ToString(ds.Tables[0].Rows[0]["LoanType"]);
+                detail.Income = Convert.ToString(ds.Tables[0].Rows[0]["Income"]);
+                detail.status = Convert.ToString(ds.Tables[0].Rows[0]["status"]);
+                detail.withdrawn = Convert.ToString(ds.Tables[0].Rows[0]["withdrawn"]);
+               
+            
+
+            return detail;
+
+        }
         public IList<ApproveLoans> GetUnApprovedLoans()
         {
             DataSet ds = repo.GetUnApprovedLoans();
@@ -116,7 +168,7 @@ namespace ServiceLayer
                 detail.AccountNumber = Convert.ToInt64(row["account_no"]);
                 detail.Id = Convert.ToInt32(row["Id"]);
                 detail.Username = Convert.ToString(row["username"]);
-                detail.Approval = Convert.ToString(row["approved"]);
+               // detail.Approval = Convert.ToString(row["approved"]);
                // detail.ApprovedTime = Convert.ToString(row["approved_time"]);
                 //detail.ApprovedTime = row["approved_time"] != DBNull.Value ? (DateTime)row["approved_time"] : (DateTime?)null;
                 detail.LoanAmount = Convert.ToString(row["loan_amount"]);
@@ -131,10 +183,14 @@ namespace ServiceLayer
             return loansList;
 
         }
-        
-        public void ApproveLoans(int id,int acc)
+
+        public void VerifyLoans(int id)
         {
-            repo.ApproveLoans(id,acc);
+            repo.VerifyLoans(id);
+        }
+        public void ApproveLoans(int id)
+        {
+            repo.ApproveLoans(id);
         }
         public void ApproveDeposits(int id, int acc)
         {

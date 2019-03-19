@@ -39,10 +39,25 @@ namespace BankWebApi.Controllers
             var result = userservice.transHistory(accountNumber);
             return Ok<IList<Transaction>>(result);
         }
+
+        [HttpGet]
+        public IHttpActionResult UserViewLoans(int id)
+        {
+
+            var res = userservice.UserViewLoans(id);
+            return Ok<UsrViewLoans>(res);
+        }
+
         [HttpGet]
         public IHttpActionResult loanDetails(int accountNumber)
         {
             var result = userservice.loanDetails(accountNumber);
+            return Ok<IList<UsrViewLoans>>(result);
+        }
+        [HttpGet]
+        public IHttpActionResult ViewUnApprovedLoans(int accountNumber)
+        {
+            var result = userservice.ViewUnApprovedLoans(accountNumber);
             return Ok<IList<UsrViewLoans>>(result);
         }
         [HttpGet]
@@ -51,6 +66,14 @@ namespace BankWebApi.Controllers
             var result = userservice.depositDetails(accountNumber);
             return Ok<IList<Deposits>>(result);
         }
+        [HttpPost]
+        public void GetAmount(HttpRequestMessage request)
+        {
+            string ss = request.Content.ReadAsStringAsync().Result;
+            int id = Convert.ToInt32(ss);
+            userservice.GetAmount(id);
+        }
+      
         [HttpPost]
         public void applyLoan(HttpRequestMessage request)
         {

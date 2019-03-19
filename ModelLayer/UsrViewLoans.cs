@@ -15,6 +15,8 @@ namespace ModelLayer
         public string LoanAmount { get; set; }
         public string EmpType { get; set; }
         public string City { get; set; }
+        public string status { get; set; }
+        public string withdrawn { get; set; }
         public string Approval { get; set; }
         public string ApprovedTime { get; set; }
     }

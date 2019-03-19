@@ -15,6 +15,7 @@ namespace RepositoryLayer
     {
         public DataSet GetAccountDetail()
         {
+
             SqlConnection con = new SqlConnection();
             try
             {
@@ -97,6 +98,48 @@ namespace RepositoryLayer
             }
 
         }
+        public DataSet VerifierGetLoans()
+        {
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
+                con.Open();
+                string getUserDetail = "SELECT * from [Verifier_view_loans]";
+                SqlCommand cmd = new SqlCommand(getUserDetail, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                return ds;
+            }
+            //throw new NotImplementedException();
+            catch
+            {
+                return null;
+            }
+
+        }
+        public DataSet VerifierGetLoans(int id)
+        {
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
+                con.Open();
+                string getUserDetail = "SELECT * from [Verifier_view_loans] where Id="+id;
+                SqlCommand cmd = new SqlCommand(getUserDetail, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                return ds;
+            }
+            //throw new NotImplementedException();
+            catch
+            {
+                return null;
+            }
+
+        }
         public DataSet GetUnApprovedLoans()
         {
             SqlConnection con = new SqlConnection();
@@ -137,7 +180,24 @@ namespace RepositoryLayer
 
             }
         }
-        public void ApproveLoans(int id,int acc)
+        public void VerifyLoans(int id)
+        {
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
+                con.Open();
+               
+               
+                SqlCommand cmd1 = new SqlCommand("verifyLoans", con);
+                cmd1.CommandType = CommandType.StoredProcedure;
+                cmd1.Parameters.AddWithValue("@id", id);
+               
+                cmd1.ExecuteNonQuery();
+            }
+            finally { }
+        }
+        public void ApproveLoans(int id)
         {
             SqlConnection con = new SqlConnection();
             try
@@ -155,9 +215,9 @@ namespace RepositoryLayer
                 SqlCommand cmd1 = new SqlCommand("approveloans", con);
                 cmd1.CommandType = CommandType.StoredProcedure;
                 cmd1.Parameters.AddWithValue("@id", id);
-                cmd1.Parameters.AddWithValue("@accountno", accno);
-                cmd1.Parameters.AddWithValue("@bal", bal);
-                cmd1.Parameters.AddWithValue("@appAccountNo", acc);
+                //cmd1.Parameters.AddWithValue("@accountno", accno);
+                //cmd1.Parameters.AddWithValue("@bal", bal);
+                //cmd1.Parameters.AddWithValue("@appAccountNo", acc);
                 cmd1.ExecuteNonQuery();
             }
             finally { }
@@ -196,7 +256,7 @@ namespace RepositoryLayer
                 con.Open();
 
 
-                int boolInt = cu.IsAdmin ? 1 : 0;
+                //int boolInt = cu.IsAdmin ? 1 : 0;
                 SqlCommand cmd = new SqlCommand("update", con);
 
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -264,7 +324,7 @@ namespace RepositoryLayer
                 con.Open();
 
                 //DateTime dob = DateTime.ParseExact(Convert.ToString(cu.Dob), "dd/mm/yyyy", null);
-                int boolInt = cu.IsAdmin ? 1 : 0;
+              //  int boolInt = cu.IsAdmin ? 1 : 0;
                 SqlCommand cmd = new SqlCommand("AddAccount", con);
                 //  SqlCommand cmd1 = new SqlCommand("insert into Login(username,password,admin) values('" + cu.UserName + "','" + cu.Password + "'," + boolInt + ");", con);
                 cmd.CommandType = CommandType.StoredProcedure;

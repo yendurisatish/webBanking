@@ -83,7 +83,27 @@ namespace RepositoryLayer
            {
                con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
                con.Open();
-               string loanDetail = "select * from [dbo].[user_view_loans] where account_no=" + accno;
+               string loanDetail = "select * from [dbo].[user_view_loans] where account_no=" + accno + " and approved='yes'";
+               SqlCommand cmd = new SqlCommand(loanDetail, con);
+               SqlDataAdapter da = new SqlDataAdapter(cmd);
+               DataSet ds = new DataSet();
+               da.Fill(ds);
+               return ds;
+           }
+           //throw new NotImplementedException();
+           catch
+           {
+               return null;
+           }
+       }
+       public DataSet ViewUnApprovedLoans(Int64 accno)
+       {
+           SqlConnection con = new SqlConnection();
+           try
+           {
+               con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
+               con.Open();
+               string loanDetail = "select * from [dbo].[user_view_loans] where account_no=" + accno+" and approved='no'";
                SqlCommand cmd = new SqlCommand(loanDetail, con);
                SqlDataAdapter da = new SqlDataAdapter(cmd);
                DataSet ds = new DataSet();
@@ -200,6 +220,35 @@ namespace RepositoryLayer
                con.Close();
            }
        }
+      public void GetAmount(int id)
+      {
+          SqlConnection con = new SqlConnection();
+          con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
+          con.Open();
+          // string source = @"C:\Users\saivenkatas\Desktop\doc\hackathon_participation.jpg";
+          //al.Payslip = SaveFile(source);
+          //al.Photo = SaveFile(source);
+          //al.Signature = SaveFile(source);
+          try
+          {
+              string getUserDetail = "SELECT * FROM [MyBank].[dbo].[loan] where Id="+id;
+              SqlCommand cmd1 = new SqlCommand(getUserDetail, con);
+              SqlDataAdapter da = new SqlDataAdapter(cmd1);
+              DataTable ds = new DataTable();
+              da.Fill(ds);
+              SqlCommand cmd = new SqlCommand("UserGetLoanAmount", con);
+              cmd.CommandType = CommandType.StoredProcedure;
+              cmd.Parameters.AddWithValue("@accountno", ds.Rows[0]["account_no"]);             
+              cmd.Parameters.AddWithValue("@loanamount", ds.Rows[0]["loan_amount"]);
+              cmd.Parameters.AddWithValue("@id", id);   
+              cmd.ExecuteNonQuery();
+          }
+          finally
+          {
+
+              con.Close();
+          }
+      }
       public void applyDeposit(Deposits ds)
       {
           SqlConnection con = new SqlConnection();
@@ -217,6 +266,27 @@ namespace RepositoryLayer
       }
 
 
+      public DataSet UserViewLoans(int id)
+      {
+          SqlConnection con = new SqlConnection();
+          try
+          {
+              con.ConnectionString = ConfigurationManager.ConnectionStrings["BankManagmentConn"].ConnectionString;
+              con.Open();
+              string getUserDetail = "SELECT * from [user_view_loans] where Id=" + id;
+              SqlCommand cmd = new SqlCommand(getUserDetail, con);
+              SqlDataAdapter da = new SqlDataAdapter(cmd);
+              DataSet ds = new DataSet();
+              da.Fill(ds);
+              return ds;
+          }
+          //throw new NotImplementedException();
+          catch
+          {
+              return null;
+          }
+
+      }
       public DataSet Login(string username,string password)
       {
           SqlConnection con = new SqlConnection();

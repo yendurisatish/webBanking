@@ -9,5 +9,6 @@ namespace ModelLayer
   public  class AdminViewLoans : UsrViewLoans
     {
         public string Username { get; set; }
+        public string status { get; set; }
     }
 }
